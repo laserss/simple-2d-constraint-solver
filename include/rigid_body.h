@@ -1,6 +1,6 @@
 #ifndef ATG_SIMPLE_2D_CONSTRAINT_SOLVER_RIGID_BODY_H
 #define ATG_SIMPLE_2D_CONSTRAINT_SOLVER_RIGID_BODY_H
-
+//git test
 namespace atg_scs {
     struct RigidBody {
         public:
