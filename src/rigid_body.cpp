@@ -11,6 +11,7 @@ atg_scs::RigidBody::~RigidBody() {
     /* void */
 }
 
+//计算刚体的能量，包括动能和转动动能
 double atg_scs::RigidBody::energy() const {
     const double speed_2 = v_x * v_x + v_y * v_y;
     const double E_k = 0.5 * m * speed_2;
