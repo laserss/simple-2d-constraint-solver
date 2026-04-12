@@ -10,8 +10,13 @@ save point:
 device:     windows
 time:       2026/4/12
 
-location:   
-target:
+location:   force_generator.h
+target:     code deep dive in spring.h/cpp     system_state.h/cpp
+
+done:       rigid_body.h/cpp
+            force_generator.h/cpp
+            gravity_force_generator.h/cpp
+            
 
 
 
@@ -20,9 +25,9 @@ how to save:
 
 turn on GitBash(Windows)/terminal(Mac)
 
-windows:cd /d/dev/simple-2d-constraint-solver
+GitBash:cd /d/dev/simple-2d-constraint-solver
 
-terminal:
+Terminal:
 
 
 
