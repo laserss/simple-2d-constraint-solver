@@ -13,6 +13,7 @@ namespace atg_scs {
 
             virtual void apply(SystemState *state);
 
+            //重力加速度
             double m_g;
     };
 } /* namespace atg_scs */

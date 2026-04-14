@@ -18,19 +18,22 @@ atg_scs::Spring::~Spring() {
 }
 
 void atg_scs::Spring::apply(SystemState *state) {
+    //任意一个端点为空，则不应用弹簧力
     if (m_body1 == nullptr || m_body2 == nullptr) return;
 
+    //
     double x1, y1;
     double x2, y2;
 
+    //
     double v_x1 = 0, v_y1 = 0;
     double v_x2 = 0, v_y2 = 0;
 
-    if (m_body1->index != -1) {
+    if (m_body1->index != -1) { //若刚体在刚体系统中，使用state的localToWorld函数，转换为世界坐标
         state->localToWorld(m_p1_x, m_p1_y, &x1, &y1, m_body1->index);
         state->velocityAtPoint(m_p1_x, m_p1_y, &v_x1, &v_y1, m_body1->index);
     }
-    else {
+    else {  //若刚体不在刚体系统中，则使用刚体自身的localToWorld函数，转换为世界坐标
         m_body1->localToWorld(m_p1_x, m_p1_y, &x1, &y1);
     }
 
@@ -44,9 +47,9 @@ void atg_scs::Spring::apply(SystemState *state) {
 
     double dx = x2 - x1;
     double dy = y2 - y1;
-
     const double l = std::sqrt(dx * dx + dy * dy);
 
+////////////////////////////////////////////////////////////////////////save point, start here////////////////////////////////////////////////////////////////////////
     if (std::abs(l) >= 1E-2) {
         dx /= l;
         dy /= l;
@@ -79,6 +82,7 @@ void atg_scs::Spring::apply(SystemState *state) {
     );
 }
 
+//获取弹簧的两个端点的世界坐标
 void atg_scs::Spring::getEnds(double *x_1, double *y_1, double *x_2, double *y_2) {
     if (m_body1 == nullptr || m_body2 == nullptr) return;
 
@@ -86,6 +90,8 @@ void atg_scs::Spring::getEnds(double *x_1, double *y_1, double *x_2, double *y_2
     m_body2->localToWorld(m_p2_x, m_p2_y, x_2, y_2);
 }
 
+//根据弹簧的静止长度和当前长度计算弹簧的能量
+//能量 = 0.5 * 弹性系数 * (当前长度 - 静止长度) * (当前长度 - 静止长度)
 double atg_scs::Spring::energy() const {
     if (m_body1 == nullptr || m_body2 == nullptr) return 0;
 

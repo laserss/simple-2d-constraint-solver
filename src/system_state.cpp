@@ -36,10 +36,12 @@ atg_scs::SystemState::SystemState() {
 }
 
 atg_scs::SystemState::~SystemState() {
+    //assert是断言，如果条件为假，则程序终止
     assert(n == 0);
     assert(n_c == 0);
 }
 
+//将state系统状态复制到当前系统
 void atg_scs::SystemState::copy(const SystemState *state) {
     resize(state->n, state->n_c);
 
@@ -71,6 +73,8 @@ void atg_scs::SystemState::copy(const SystemState *state) {
     std::memcpy((void *)r_t, (void *)state->r_t, sizeof(double) * n_c * 2);
 }
 
+
+//扩大状态系统的规模至bodyCount或constraintCount，但是系统中的各项数据被清空。
 void atg_scs::SystemState::resize(int bodyCount, int constraintCount) {
     if (n >= bodyCount && n_c >= constraintCount) {
         return;
@@ -105,6 +109,8 @@ void atg_scs::SystemState::resize(int bodyCount, int constraintCount) {
     r_t = new double[(size_t)n_c * 2];
 }
 
+
+//将与刚体和约束相关的内存（即system_state中的所有指针）释放，释放后将n和n_c设置为0，dt不修改
 void atg_scs::SystemState::destroy() {
     if (n > 0) {
         freeArray(a_theta);
@@ -137,6 +143,8 @@ void atg_scs::SystemState::destroy() {
     n_c = 0;
 }
 
+
+//局部坐标(x,y)转换为世界坐标(x_t,y_t)，body为刚体的索引
 void atg_scs::SystemState::localToWorld(
         double x,
         double y,
@@ -144,6 +152,7 @@ void atg_scs::SystemState::localToWorld(
         double *y_t,
         int body)
 {
+    //获取刚体的世界坐标和角度
     const double x0 = p_x[body];
     const double y0 = p_y[body];
     const double theta = this->theta[body];
