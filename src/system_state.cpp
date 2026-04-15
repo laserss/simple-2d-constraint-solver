@@ -144,7 +144,7 @@ void atg_scs::SystemState::destroy() {
 }
 
 
-//局部坐标(x,y)转换为世界坐标(x_t,y_t)，body为刚体的索引
+//将刚体body的局部坐标(x,y)转换为世界坐标(x_t,y_t)，body为刚体的索引
 void atg_scs::SystemState::localToWorld(
         double x,
         double y,
@@ -164,6 +164,7 @@ void atg_scs::SystemState::localToWorld(
     *y_t = sin_theta * x + cos_theta * y + y0;
 }
 
+//计算body刚体上的点（x,y）在世界坐标系中的速度，保存在v_x和v_y中。注意（x,y）是刚体坐标系的本地坐标。
 void atg_scs::SystemState::velocityAtPoint(
         double x,
         double y,
@@ -171,17 +172,25 @@ void atg_scs::SystemState::velocityAtPoint(
         double *v_y,
         int body)
 {
+    //计算点的世界坐标
     double w_x, w_y;
     localToWorld(x, y, &w_x, &w_y, body);
 
+    //获取刚体旋转的角速度
     const double v_theta = this->v_theta[body];
+    //角速度转换为线速度
+    //算法为：线速度 = 角速度 * (点相对于刚体的距离)
     const double angularToLinear_x = -v_theta * (w_y - this->p_y[body]);
-    const double angularToLinear_y = v_theta * (w_x - this->p_x[body]);
+    const double angularToLinear_y = v_theta * (w_x - this->p_x[body]); 
 
+    //线速度 = 刚体本身的线速度 + 本地点（x,y）的线速度
     *v_x = this->v_x[body] + angularToLinear_x;
     *v_y = this->v_y[body] + angularToLinear_y;
 }
 
+
+//对刚体body施加力（f_x,f_y），力作用在刚体坐标系的点（x_l,y_l）上
+//影响到this->f_x[body]和this->f_y[body]，以及this->t[body]，分别表示力在x方向和y方向的分量，以及力矩
 void atg_scs::SystemState::applyForce(
     double x_l,
     double y_l,
@@ -195,6 +204,7 @@ void atg_scs::SystemState::applyForce(
     this->f_x[body] += f_x;
     this->f_y[body] += f_y;
 
+    //计算力矩，力矩 = 力 * 距离
     this->t[body] +=
         (w_y - this->p_y[body]) * -f_x +
         (w_x - this->p_x[body]) * f_y;

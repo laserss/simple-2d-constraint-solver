@@ -13,6 +13,7 @@ namespace atg_scs {
             Spring();
             virtual ~Spring();
 
+            
             virtual void apply(SystemState *state);
             
             //获取弹簧的两个端点的世界坐标，保存在x_1, y_1, x_2, y_2中
@@ -29,14 +30,12 @@ namespace atg_scs {
             //弹簧的阻尼系数
             double m_kd;
 
-            //弹簧的第一个端点的x坐标
+            //弹簧的第一个端点的x坐标（刚体坐标系的本地坐标），端点是弹簧与刚体的连接处
             double m_p1_x;
-            //弹簧的第一个端点的y坐标
             double m_p1_y;
 
-            //弹簧的第二个端点的x坐标
+            //弹簧的第二个端点的x坐标（刚体坐标系的本地坐标），端点是弹簧与刚体的连接处
             double m_p2_x;
-            //弹簧的第二个端点的y坐标
             double m_p2_y;
 
             //弹簧的第一个端点的刚体

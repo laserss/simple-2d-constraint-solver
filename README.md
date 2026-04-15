@@ -10,13 +10,15 @@ save point:
 device:     mbp
 time:       2026/4/14
 
-location:   spring.cpp  line 52
-target:     code deep dive in spring.h/cpp     system_state.h/cpp
+location:   constraint.h  line 1
+target:     code deep dive in     constraint.h/cpp
 
 done:       rigid_body.h/cpp
             force_generator.h/cpp
-            gravity_force_generator.h/cpp
-            utilities.h/cpp
+            gravity_force_generator.h/cpp   260414
+            utilities.h/cpp                 260414
+            system_state.h/cpp              260415
+            spring.h/cpp                    260415
             
 
 
@@ -30,9 +32,11 @@ how to load:
 
 turn on GitBash(Windows)/Terminal(Mac)
 
-GitBash:cd /d/dev/simple-2d-constraint-solver
+GitBash:
+cd /d/dev/simple-2d-constraint-solver
 
-Terminal:cd /Users/laserss/Desktop/simple-2d-constraint-solver
+Terminal:
+cd /Users/laserss/Desktop/simple-2d-constraint-solver
 
 
 IF switch device
