@@ -7,11 +7,11 @@ To see it in action, check out the [demo](https://github.com/ange-yaghi/scs-2d-d
 
 --------------------------------
 save point:
-device:     mbp
-time:       2026/4/14
+device:     windows
+time:       2026/4/15
 
-location:   constraint.h  line 1
-target:     code deep dive in     constraint.h/cpp
+location:   constraint.h  line 19   and   https://code2tutorial.com/tutorial/b0029ed3-64ce-414f-8af1-2cafdc783e92/03_constraint_.md  “What is a Constraint?”
+target:     code deep dive in     constraint.h/cpp   rigid_body_system.h/cpp
 
 done:       rigid_body.h/cpp
             force_generator.h/cpp
