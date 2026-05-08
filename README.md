@@ -31,8 +31,11 @@ done:       rigid_body.h/cpp
 
 --------------------------------
 how to save:
-update save point.
-push 
+1、update "save point" in readme.md
+2、git add . (改动添加至暂存区)
+3、git commit -m "提交说明"  (将暂存区内容保存至本地仓库)
+4、git push origin master
+
 
 how to load:
 
@@ -48,7 +51,3 @@ cd /Users/laserss/Desktop/simple-2d-constraint-solver
 IF switch device
     git pull origin master
 
-git add . (改动添加至暂存区)
-git commit -m "提交说明"  (将暂存区内容保存至本地仓库)
-
-git push origin master
