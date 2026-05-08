@@ -7,11 +7,15 @@ To see it in action, check out the [demo](https://github.com/ange-yaghi/scs-2d-d
 
 --------------------------------
 save point:
-device:     windows
-time:       2026/4/15
+device:     mac
+time:       2026/5/8
 
-location:   constraint.h  line 19   and   https://code2tutorial.com/tutorial/b0029ed3-64ce-414f-8af1-2cafdc783e92/03_constraint_.md  “What is a Constraint?”
-target:     code deep dive in     constraint.h/cpp   rigid_body_system.h/cpp
+location:   generic_rigid_body_system.cpp (第一步：调用 calculate() 收集所有约束数据 done,waitting the next step)
+target:     generic_rigid_body_system.cpp 第二步：组装方程组右端项 169-177 
+            第三步：求解线性方程组，得到 λ 181-188 
+            第四步：计算约束力 198-206 
+            第五步：叠加到加速度，再除以质量 208-235.
+            最终每个刚体的加速度 = （外力 + 约束力）/ 质量，交给 ODE 求解器积分推进时间步。
 
 done:       rigid_body.h/cpp
             force_generator.h/cpp
@@ -19,6 +23,8 @@ done:       rigid_body.h/cpp
             utilities.h/cpp                 260414
             system_state.h/cpp              260415
             spring.h/cpp                    260415
+            link_constraint.h/cpp           260508
+
             
 
 

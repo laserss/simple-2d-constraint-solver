@@ -12,6 +12,7 @@ atg_scs::Constraint::Constraint(int constraintCount, int bodyCount) {
 
     m_index = -1;
 
+    //将m_bodies数组初始化为0
     memset(m_bodies, 0, sizeof(int) * MaxBodyCount);
 
     for (int i = 0; i < MaxConstraintCount; ++i) {

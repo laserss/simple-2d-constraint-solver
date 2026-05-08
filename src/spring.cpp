@@ -53,7 +53,6 @@ void atg_scs::Spring::apply(SystemState *state) {
     double dy = y2 - y1;
     const double l = std::sqrt(dx * dx + dy * dy);
 
-////////////////////////////////////////////////////////////////////////save point, start here////////////////////////////////////////////////////////////////////////
     //如果距离l大于0.01，则将向量（dx,dy）归一化。归一化之后(dx,dy)是从端点1指向端点2的单位方向向量
     if (std::abs(l) >= 1E-2) {
         dx /= l;    //dx = dx / l;
@@ -75,9 +74,6 @@ void atg_scs::Spring::apply(SystemState *state) {
     const double x = l - m_restLength;
 
     //对刚体1施加力，力的大小为dx * x * m_ks + rel_v_x * m_kd，力的方向为(dx,dy)，力的作用点为(m_p1_x,m_p1_y)
-
-
-    
     state->applyForce(
         m_p1_x,
         m_p1_y,
