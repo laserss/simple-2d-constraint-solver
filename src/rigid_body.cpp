@@ -20,6 +20,7 @@ double atg_scs::RigidBody::energy() const {
     return E_k + E_r;
 }
 
+//将本地坐标系的坐标XY转换至世界坐标存入w_x w_y
 void atg_scs::RigidBody::localToWorld(
         double x,
         double y,
@@ -33,6 +34,7 @@ void atg_scs::RigidBody::localToWorld(
     *w_y = sin_theta * x + cos_theta * y + p_y;
 }
 
+//将世界坐标系的坐标XY转换至本地坐标存入l_x l_y
 void atg_scs::RigidBody::worldToLocal(
         double x,
         double y,

@@ -1,6 +1,8 @@
 #include "../include/generic_rigid_body_system.h"
 
+//用于时间测量，在process()函数中使用，记录每个步骤的时间消耗。
 #include <chrono>
+
 
 atg_scs::GenericRigidBodySystem::GenericRigidBodySystem() {
     m_sleSolver = nullptr;
@@ -11,6 +13,7 @@ atg_scs::GenericRigidBodySystem::~GenericRigidBodySystem() {
     /* void */
 }
 
+//初始化，设置求解器以及中间值结构体
 void atg_scs::GenericRigidBodySystem::initialize(
         SleSolver *sleSolver,
         OdeSolver *odeSolver)
@@ -18,6 +21,7 @@ void atg_scs::GenericRigidBodySystem::initialize(
     m_sleSolver = sleSolver;
     m_odeSolver = odeSolver;
 
+    //初始化中间值矩阵lambda为0
     m_iv.lambda.initialize(0, 0);
 }
 

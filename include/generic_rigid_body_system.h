@@ -25,6 +25,7 @@ namespace atg_scs {
             SleSolver *m_sleSolver;
 
         protected:
+            //中间值结构体，用于存储中间计算结果
             struct IntermediateValues {
                 SparseMatrix<3> J_sparse, J_dot_sparse, sreg0;
                 Matrix J_T;
@@ -38,7 +39,7 @@ namespace atg_scs {
                 Matrix right;
                 Matrix F_ext, F_C, R;
 
-                // Results
+                // 为什么将矩阵命名为lambda？因为lambda是拉格朗日乘子，用于存储约束力的拉格朗日乘子？
                 Matrix lambda;
             } m_iv;
     };

@@ -4,7 +4,9 @@
 #include "rigid_body.h"
 #include "constraint.h"
 #include "force_generator.h"
+//矩阵
 #include "matrix.h"
+//稀疏矩阵
 #include "sparse_matrix.h"
 #include "system_state.h"
 
@@ -13,6 +15,7 @@
 namespace atg_scs {
     class RigidBodySystem {
         public:
+            //记录600个时间步长的性能数据?
             static const int ProfilingSamples = 60 * 10;
 
         public:
@@ -33,6 +36,7 @@ namespace atg_scs {
             void removeForceGenerator(ForceGenerator *generator);
 
             int getRigidBodyCount() const { return (int)m_rigidBodies.size(); }
+            //约束容器m_constraints中约束实例的数量
             int getConstraintCount() const { return (int)m_constraints.size(); }
             int getForceGeneratorCount() const { return (int)m_forceGenerators.size(); }
 

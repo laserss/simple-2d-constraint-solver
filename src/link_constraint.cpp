@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+//约束数量为2表示只有x方向和y方向的约束
 atg_scs::LinkConstraint::LinkConstraint() : Constraint(2, 2) {
     m_local_x_1 = m_local_y_1 = 0.0;
     m_local_x_2 = m_local_y_2 = 0.0;

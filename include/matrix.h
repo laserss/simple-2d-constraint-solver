@@ -68,11 +68,17 @@ namespace atg_scs {
             }
 
         protected:
+            //储存矩阵每一行的指针（最多m_capacityHeight个指针）
             double **m_matrix;
+            //储存矩阵数据（最多m_capacityWidth*m_capacityHeight个double元素）
             double *m_data;
+            //矩阵当前宽度
             int m_width;
+            //矩阵当前高度
             int m_height;
+            //矩阵最大宽度（含已申请的预留空间）
             int m_capacityWidth;
+            //矩阵最大高度（含已申请的预留空间）
             int m_capacityHeight;
     };
 } /* namespace atg_scs */

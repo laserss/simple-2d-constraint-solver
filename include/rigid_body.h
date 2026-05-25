@@ -10,7 +10,9 @@
                 RigidBody();
                 ~RigidBody();
 
+                //将本地坐标系的坐标XY转换至世界坐标存入w_x w_y
                 void localToWorld(double x, double y, double *w_x, double *w_y);
+                //将世界坐标系的坐标XY转换至本地坐标存入l_x l_y
                 void worldToLocal(double x, double y, double *l_x, double *l_y);
 
                 double p_x;//刚体本地坐标系原点的世界坐标x

@@ -76,6 +76,7 @@ void atg_scs::RigidBodySystem::removeForceGenerator(ForceGenerator *forceGenerat
     m_forceGenerators.resize(m_forceGenerators.size() - 1);
 }
 
+//累加RigidBodySystem中每一个约束实例包含的约束数量(如LinkConstraint包含x和y方向2个约束，则累加2)
 int atg_scs::RigidBodySystem::getFullConstraintCount() const {
     int count = 0;
     for (Constraint *constraint: m_constraints) {
@@ -84,10 +85,11 @@ int atg_scs::RigidBodySystem::getFullConstraintCount() const {
 
     return count;
 }
-
+//计算samples数组中所有非-1的值的平均值,samples数组中存储了600个时间步长的性能数据
 float atg_scs::RigidBodySystem::findAverage(long long *samples) {
     long long accum = 0;
     int count = 0;
+    //ProfilingSamples的值为600
     for (int i = 0; i < ProfilingSamples; ++i) {
         if (samples[i] != -1) {
             accum += samples[i];
@@ -115,9 +117,12 @@ float atg_scs::RigidBodySystem::getForceEvalMicroseconds() const {
     return findAverage(m_forceEvalMicroseconds);
 }
 
+//填充系统状态，将刚体和约束的状态填充到系统状态中
 void atg_scs::RigidBodySystem::populateSystemState() {
     const int n = getRigidBodyCount();
+    //累加RigidBodySystem中每一个约束实例包含的约束数量(如LinkConstraint包含x和y方向2个约束，则累加2)
     const int n_c = getFullConstraintCount();
+    //获取RigidBodySystem中约束容器m_constraints中约束实例的数量
     const int m = getConstraintCount();
 
     m_state.resize(n, n_c);

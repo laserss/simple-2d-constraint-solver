@@ -1,0 +1,158 @@
+digraph HeaderDependencies {
+    rankdir=TB;
+    splines=ortho;
+    nodesep=0.6;
+    ranksep=1.0;
+    fontname="Helvetica";
+    node [shape=box, style="filled,rounded", fontname="Helvetica", fontsize=11, margin="0.15,0.1"];
+    edge [color="#555555", arrowsize=0.8];
+
+    // ── 基础层 (Layer 0) ──────────────────────────────────
+    subgraph cluster_0 {
+        label="Layer 0  基础层（无内部依赖）";
+        fontsize=12; fontname="Helvetica Bold";
+        style=dashed; color="#999999";
+        node [fillcolor="#AED6F1"];
+        utilities_h    [label="utilities.h"];
+        rigid_body_h   [label="rigid_body.h"];
+        system_state_h [label="system_state.h"];
+    }
+
+    // ── 基本数据结构层 (Layer 1) ──────────────────────────
+    subgraph cluster_1 {
+        label="Layer 1  数据结构层";
+        fontsize=12; fontname="Helvetica Bold";
+        style=dashed; color="#999999";
+        node [fillcolor="#A9DFBF"];
+        matrix_h         [label="matrix.h"];
+        ode_solver_h     [label="ode_solver.h"];
+        force_generator_h [label="force_generator.h"];
+    }
+
+    // ── 扩展层 (Layer 2) ──────────────────────────────────
+    subgraph cluster_2 {
+        label="Layer 2  扩展层";
+        fontsize=12; fontname="Helvetica Bold";
+        style=dashed; color="#999999";
+        node [fillcolor="#F9E79F"];
+        sparse_matrix_h         [label="sparse_matrix.h"];
+        euler_ode_solver_h      [label="euler_ode_solver.h"];
+        rk4_ode_solver_h        [label="rk4_ode_solver.h"];
+        nsv_ode_solver_h        [label="nsv_ode_solver.h"];
+        gravity_force_gen_h     [label="gravity_force_generator.h"];
+        static_force_gen_h      [label="static_force_generator.h"];
+        spring_h                [label="spring.h"];
+        constraint_h            [label="constraint.h"];
+    }
+
+    // ── SLE 抽象层 (Layer 3) ──────────────────────────────
+    subgraph cluster_3 {
+        label="Layer 3  SLE 抽象层";
+        fontsize=12; fontname="Helvetica Bold";
+        style=dashed; color="#999999";
+        node [fillcolor="#F0B27A"];
+        sle_solver_h [label="sle_solver.h"];
+    }
+
+    // ── 具体 SLE 求解器 (Layer 4) ─────────────────────────
+    subgraph cluster_4 {
+        label="Layer 4  SLE 求解器层";
+        fontsize=12; fontname="Helvetica Bold";
+        style=dashed; color="#999999";
+        node [fillcolor="#F1948A"];
+        gauss_seidel_h    [label="gauss_seidel_sle_solver.h"];
+        gauss_elim_h      [label="gaussian_elimination_sle_solver.h"];
+        conj_grad_h       [label="conjugate_gradient_sle_solver.h"];
+    }
+
+    // ── 刚体系统抽象层 (Layer 5) ──────────────────────────
+    subgraph cluster_5 {
+        label="Layer 5  刚体系统抽象层";
+        fontsize=12; fontname="Helvetica Bold";
+        style=dashed; color="#999999";
+        node [fillcolor="#BB8FCE"];
+        rigid_body_system_h [label="rigid_body_system.h"];
+    }
+
+    // ── 具体系统实现 (Layer 6) ────────────────────────────
+    subgraph cluster_6 {
+        label="Layer 6  具体系统实现层";
+        fontsize=12; fontname="Helvetica Bold";
+        style=dashed; color="#999999";
+        node [fillcolor="#85C1E9"];
+        generic_rbs_h  [label="generic_rigid_body_system.h"];
+        opt_nsv_rbs_h  [label="optimized_nsv_rigid_body_system.h"];
+    }
+
+    // ── 统一入口 (Layer 7) ────────────────────────────────
+    subgraph cluster_7 {
+        label="Layer 7  统一入口";
+        fontsize=12; fontname="Helvetica Bold";
+        style=filled; color="#FADBD8"; fillcolor="#FADBD8";
+        node [fillcolor="#E74C3C", fontcolor="white", fontname="Helvetica Bold"];
+        scs_h [label="scs.h"];
+    }
+
+    // ── 边 ────────────────────────────────────────────────
+
+    // L1 -> L0
+    matrix_h          -> utilities_h;
+    ode_solver_h      -> system_state_h;
+    force_generator_h -> system_state_h;
+
+    // L2 -> L1/L0
+    sparse_matrix_h     -> matrix_h;
+    sparse_matrix_h     -> utilities_h;
+    euler_ode_solver_h  -> ode_solver_h;
+    rk4_ode_solver_h    -> ode_solver_h;
+    nsv_ode_solver_h    -> ode_solver_h;
+    gravity_force_gen_h -> force_generator_h;
+    gravity_force_gen_h -> rigid_body_h;
+    static_force_gen_h  -> force_generator_h;
+    static_force_gen_h  -> rigid_body_h;
+    spring_h            -> force_generator_h;
+    spring_h            -> rigid_body_h;
+    constraint_h        -> system_state_h;
+    constraint_h        -> rigid_body_h;
+    constraint_h        -> matrix_h;
+    constraint_h        -> utilities_h;
+
+    // L3 -> L2/L1
+    sle_solver_h -> matrix_h;
+    sle_solver_h -> sparse_matrix_h;
+
+    // L4 -> L3/L0
+    gauss_seidel_h -> sle_solver_h;
+    gauss_elim_h   -> sle_solver_h;
+    gauss_elim_h   -> utilities_h;
+    conj_grad_h    -> sle_solver_h;
+
+    // L5 -> L2/L1/L0
+    rigid_body_system_h -> rigid_body_h;
+    rigid_body_system_h -> constraint_h;
+    rigid_body_system_h -> force_generator_h;
+    rigid_body_system_h -> matrix_h;
+    rigid_body_system_h -> sparse_matrix_h;
+    rigid_body_system_h -> system_state_h;
+
+    // L6 -> L5/L3/L2/L1
+    generic_rbs_h -> rigid_body_system_h;
+    generic_rbs_h -> sle_solver_h;
+    generic_rbs_h -> ode_solver_h;
+    opt_nsv_rbs_h -> rigid_body_system_h;
+    opt_nsv_rbs_h -> sle_solver_h;
+    opt_nsv_rbs_h -> nsv_ode_solver_h;
+
+    // scs.h -> L6/L4/L2
+    scs_h -> generic_rbs_h;
+    scs_h -> opt_nsv_rbs_h;
+    scs_h -> euler_ode_solver_h;
+    scs_h -> rk4_ode_solver_h;
+    scs_h -> nsv_ode_solver_h;
+    scs_h -> gauss_seidel_h;
+    scs_h -> gauss_elim_h;
+    scs_h -> conj_grad_h;
+    scs_h -> static_force_gen_h;
+    scs_h -> gravity_force_gen_h;
+    scs_h -> spring_h;
+}

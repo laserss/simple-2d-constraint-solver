@@ -10,7 +10,7 @@ save point:
 device:     mac
 time:       2026/5/8
 
-location:   generic_rigid_body_system.cpp (第一步：调用 calculate() 收集所有约束数据 done,waitting the next step)
+location:   sle_solver.h/cpp
 target:     generic_rigid_body_system.cpp 第二步：组装方程组右端项 169-177 
             第三步：求解线性方程组，得到 λ 181-188 
             第四步：计算约束力 198-206 
@@ -23,9 +23,12 @@ done:       rigid_body.h/cpp
             utilities.h/cpp                 260414
             system_state.h/cpp              260415
             spring.h/cpp                    260415
+            constraint.h/cpp                260415
             link_constraint.h/cpp           260508
+            matrix.h/cpp                    260522
+            sparse_matrix.h/cpp             260526
 
-            
+
 
 
 

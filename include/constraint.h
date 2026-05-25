@@ -69,6 +69,7 @@ namespace atg_scs {
             }
 
         protected:
+            //约束的数量(如果设置为3表示有x方向、y方向、角度三个约束)
             int m_constraintCount;
     };
 } /* namespace atg_scs */
