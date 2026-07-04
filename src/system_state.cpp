@@ -74,7 +74,7 @@ void atg_scs::SystemState::copy(const SystemState *state) {
 }
 
 
-//扩大状态系统的规模至bodyCount或constraintCount，但是系统中的各项数据被清空。
+//扩大状态系统的规模至bodyCount或constraintCount，但是系统中的各项数据被清空，没有扩大的话数据不清空。
 void atg_scs::SystemState::resize(int bodyCount, int constraintCount) {
     if (n >= bodyCount && n_c >= constraintCount) {
         return;

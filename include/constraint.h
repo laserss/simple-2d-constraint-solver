@@ -19,6 +19,7 @@ namespace atg_scs {
             static constexpr int MaxConstraintCount = 3;
             static constexpr int MaxBodyCount = 2;
 
+            //C、J、J_dot、v_bias、limits、ks、kd
             struct Output {
                 //储存连接点之间的坐标差值，分为x方向和y方向及角度差值（是否有角度差值？）
                 double C[MaxConstraintCount];

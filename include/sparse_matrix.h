@@ -42,11 +42,12 @@ namespace atg_scs {
                 assert(m_blockData == nullptr);
             }
 
+            //忽略宽度，因为实际存储的宽度固定为6。高度根据输入参数变化。
             void initialize(int width, int height) {
                 resize(width, height);
                 memset(m_blockData, 0xFFFFFF, sizeof(uint8_t) * T_Entries * m_height);
             }
-
+            //忽略宽度～
             void resize(int width, int height) {
                 if (width == m_width && height == m_height) return;
                 else if (height > m_capacityHeight) {

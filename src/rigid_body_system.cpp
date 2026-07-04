@@ -127,6 +127,7 @@ void atg_scs::RigidBodySystem::populateSystemState() {
 
     m_state.resize(n, n_c);
 
+    //把每一个刚体的信息填充到系统状态中
     for (int i = 0; i < n; ++i) {
         m_state.a_x[i] = 0;
         m_state.a_y[i] = 0;
@@ -143,13 +144,29 @@ void atg_scs::RigidBodySystem::populateSystemState() {
 
         m_state.m[i] = m_rigidBodies[i]->m;
     }
-
+    /*  indexMap 循环在做什么？ 记录每一个约束对象在全局展平的约束方程数组中的起始位置。
+    
+        关键前提：一个 Constraint 对象可以包含多个标量约束方程（如 LinkConstraint 同时约束 x 和 y，有 2 个方程）。
+        indexMap[i] 记录的是：第 i 个约束对象，在全局展平的约束方程数组中，从第几行开始。
+        举例，假设有 3 个约束：
+        约束对象 0（LinkConstraint）：  getConstraintCount() = 2
+        约束对象 1（FixedRotation）：   getConstraintCount() = 1
+        约束对象 2（LinkConstraint）：  getConstraintCount() = 2
+        循环执行后：
+        indexMap[0] = 0    ← 约束0 的方程从 J 的第 0 行开始
+        indexMap[1] = 2    ← 约束1 的方程从 J 的第 2 行开始
+        indexMap[2] = 3    ← 约束2 的方程从 J 的第 3 行开始
+        本质上是对 getConstraintCount() 做前缀和（prefix sum）：
+        indexMap[i] = Σ(k=0 to i-1) constraints[k]->getConstraintCount()
+        这样当代码需要操作某个约束对象对应的 J 矩阵行、lambda 值、或约束反力 r_x/r_y/r_t 时，能直接通过 indexMap[i] 跳转到正确的起始位置，而不用每次都从头累加。
+    */
     for (int i = 0, j_f = 0; i < m; ++i) {
         m_state.indexMap[i] = j_f;
         j_f += m_constraints[i]->getConstraintCount();
     }
 }
 
+//向列向量M、M_inv添加各个刚体的参数
 void atg_scs::RigidBodySystem::populateMassMatrices(Matrix *M, Matrix *M_inv) {
     const int n = getRigidBodyCount();
 

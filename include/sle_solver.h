@@ -11,11 +11,11 @@ namespace atg_scs {
             virtual ~SleSolver();
 
             virtual bool solve(
-                    SparseMatrix<3> &J,
-                    Matrix &W,
-                    Matrix &right,
-                    Matrix *result,
-                    Matrix *previous);
+                    SparseMatrix<3> &J,     //T_Stride=3(指定),T_Entries=2（默认值）
+                    Matrix &W,              //质量矩阵的逆矩阵
+                    Matrix &right,          //右边的矩阵？
+                    Matrix *result,         //拉格朗日乘子？λ？
+                    Matrix *previous);       //上一帧的拉格朗日乘子？
             virtual bool solveWithLimits(
                     SparseMatrix<3> &J,
                     Matrix &W,

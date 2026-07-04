@@ -8,9 +8,9 @@ To see it in action, check out the [demo](https://github.com/ange-yaghi/scs-2d-d
 --------------------------------
 save point:
 device:     mac
-time:       2026/5/8
+time:       2026/5/28
 
-location:   sle_solver.h/cpp
+location:   generic_rigid_body_system.cpp  line:196
 target:     generic_rigid_body_system.cpp 第二步：组装方程组右端项 169-177 
             第三步：求解线性方程组，得到 λ 181-188 
             第四步：计算约束力 198-206 
@@ -27,6 +27,7 @@ done:       rigid_body.h/cpp
             link_constraint.h/cpp           260508
             matrix.h/cpp                    260522
             sparse_matrix.h/cpp             260526
+            sle_solver.h/cpp                260527
 
 
 

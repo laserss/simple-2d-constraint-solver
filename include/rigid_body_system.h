@@ -23,6 +23,7 @@ namespace atg_scs {
             virtual ~RigidBodySystem();
 
             virtual void reset();
+            //steps还能大于1？一次执行多步吗？
             virtual void process(double dt, int steps = 1);
 
             void addRigidBody(RigidBody *body);
