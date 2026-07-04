@@ -193,7 +193,8 @@ void atg_scs::GenericRigidBodySystem::processConstraints(
 
     auto s1 = std::chrono::steady_clock::now();
 
-    //传入上一帧的 λ 作为初始猜测（热启动），迭代法（Gauss-Seidel）能更快收敛。
+    //求解 λ 的值
+    //传入上一帧的 λ 作为初始猜测（热启动）。
     const bool solvable =
         m_sleSolver->solve(
             m_iv.J_sparse,
