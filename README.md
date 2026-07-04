@@ -8,7 +8,7 @@ To see it in action, check out the [demo](https://github.com/ange-yaghi/scs-2d-d
 --------------------------------
 save point:
 device:     mac
-time:       2026/5/28
+time:       2026/7/4(打了一个月dota2,没花时间搞这个，今天补一下)
 
 location:   gaussian_elimination_sle_solver.h/cpp  
 target:     gaussian_elimination_sle_solver.h/cpp
