@@ -2,3 +2,6 @@ build/
 workspace/
 compile_commands.json
 .claude/
+.omm/
+graphify-out/
+.cursor/
