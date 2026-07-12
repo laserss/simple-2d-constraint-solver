@@ -27,18 +27,14 @@ namespace atg_scs {
                 double J[MaxConstraintCount][3 * MaxBodyCount];
                 //约束的雅可比矩阵的导数（J对时间求导）
                 double J_dot[MaxConstraintCount][3 * MaxBodyCount];
-                //?约束的变量偏差（v_bias）是约束方程的右侧常数项，表示约束被违反的程度。
-                //?在求解约束时，需要将v_bias项移到等式左侧，以便求解约束力。
+                
                 double v_bias[MaxConstraintCount];
-                //?约束的变量限制（limits）是约束方程的左侧常数项，表示约束被违反的程度。
-                //?在求解约束时，需要将limits项移到等式左侧，以便求解约束力。
+                //limits[i][0] / limits[i][1] 是第 i 个约束对应的最小/最大约束力或扭矩
                 //数组大小设置为2，用于存放约束力的下限和上限，例如limits[0][0]表示x方向的约束下限，limits[0][1]表示x方向的约束上限
                 double limits[MaxConstraintCount][2];
-                //?约束的弹簧刚度（ks）是约束方程的左侧常数项，表示约束被违反的程度。
-                //?在求解约束时，需要将ks项移到等式左侧，以便求解约束力。
+                
                 double ks[MaxConstraintCount];
-                //?约束的阻尼刚度（kd）是约束方程的左侧常数项，表示约束被违反的程度。
-                //?在求解约束时，需要将kd项移到等式左侧，以便求解约束力。
+                
                 double kd[MaxConstraintCount];
             };
 

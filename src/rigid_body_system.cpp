@@ -184,10 +184,12 @@ void atg_scs::RigidBodySystem::populateMassMatrices(Matrix *M, Matrix *M_inv) {
      }
 }
 
+//计算所有力生成器对刚体的作用力
 void atg_scs::RigidBodySystem::processForces() {
     const int n_f = getForceGeneratorCount();
     const int n = getRigidBodyCount();
 
+    //初始化刚体的受力为0
     for (int i = 0; i < n; ++i) {
         m_state.f_x[i] = 0.0;
         m_state.f_y[i] = 0.0;
@@ -195,6 +197,7 @@ void atg_scs::RigidBodySystem::processForces() {
     }
 
     for (int i = 0; i < n_f; ++i) {
+        //计算力生成器对刚体的作用力
         m_forceGenerators[i]->apply(&m_state);
     }
 }

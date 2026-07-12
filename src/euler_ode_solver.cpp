@@ -17,6 +17,8 @@ bool atg_scs::EulerOdeSolver::step(SystemState *system) {
     return true;
 }
 
+
+//新系统中每个刚体的位置、角度、速度、角速度，根据速度、加速度增加一个步长时间的变化
 void atg_scs::EulerOdeSolver::solve(SystemState *system) {
     system->dt = m_dt;
 

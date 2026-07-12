@@ -40,11 +40,13 @@ void atg_scs::OptimizedNsvRigidBodySystem::process(double dt, int steps) {
         constraintSolveTime = 0,
         forceEvalTime = 0,
         constraintEvalTime = 0;
-
+    //填充系统状态，将刚体和约束的状态填充到系统状态中
     populateSystemState();
+    //填充质量矩阵，将刚体的质量矩阵填充到系统状态中
     populateMassMatrices(&m_iv.M, &m_iv.M_inv);
 
     for (int i = 0; i < steps; ++i) {
+        //更新系统状态，根据速度、加速度增加一个步长时间的变化
         m_odeSolver.start(&m_state, dt / steps);
 
         while (true) {
@@ -53,6 +55,7 @@ void atg_scs::OptimizedNsvRigidBodySystem::process(double dt, int steps) {
             long long evalTime = 0, solveTime = 0;
 
             auto s0 = std::chrono::steady_clock::now();
+            //计算所有力生成器对刚体的作用力
             processForces();
             auto s1 = std::chrono::steady_clock::now();
 

@@ -10,7 +10,7 @@ namespace atg_scs {
             virtual ~GaussSeidelSleSolver();
 
             virtual bool solve(
-                    SparseMatrix<3> &J,
+                    SparseMatrix<3> &J,     //3表示每个非零块有3个值,非零块个数为2（默认值）
                     Matrix &W,
                     Matrix &right,
                     Matrix *result,
@@ -23,15 +23,18 @@ namespace atg_scs {
                 Matrix *result,
                 Matrix *previous);
 
-            int m_maxIterations;
-            double m_minDelta;
+            int m_maxIterations;                //最大迭代次数
+            double m_minDelta;                  //最小差值
 
         protected:
+            //求解迭代,作为辅助函数,被solve调用
             double solveIteration(
                     Matrix &left,
                     Matrix &right,
                     Matrix *result,
                     Matrix *previous);
+            
+            //求解迭代,作为辅助函数,被solveWithLimits调用
             double solveIteration(
                     Matrix &left,
                     Matrix &right,
@@ -39,8 +42,8 @@ namespace atg_scs {
                     Matrix *result,
                     Matrix *previous);
 
-            Matrix m_M;
-            SparseMatrix<3> m_reg;
+            Matrix m_M;                        //M=J^T*W*J
+            SparseMatrix<3> m_reg;              //存储中间结果的矩阵
     };
 } /* namespace atg_scs */
 

@@ -25,8 +25,8 @@ namespace atg_scs {
             }
 
         protected:
-            Matrix m_a;
-            Matrix m_M;
+            Matrix m_a; //增广矩阵:[系数矩阵 | 右侧项],即 [m_M | right]
+            Matrix m_M; //系数矩阵
             SparseMatrix<3> m_reg;
     };
 } /* namespace atg_scs */

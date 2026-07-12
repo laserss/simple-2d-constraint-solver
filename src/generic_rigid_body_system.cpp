@@ -245,6 +245,7 @@ void atg_scs::GenericRigidBodySystem::processConstraints(
         }
     }
 
+    //计算加速度
     //除以质量  F=ma  => a=F/m
     for (int i = 0; i < n; ++i) {
         const double invMass = m_iv.M_inv.get(0, i * 3 + 0);

@@ -27,7 +27,7 @@ namespace atg_scs {
 
         protected:
             void multiply(SparseMatrix<3> &J, Matrix &W, Matrix &x, Matrix *target);
-            bool sufficientlySmall(Matrix &x, Matrix &target) const;
+            bool sufficientlySmall(Matrix &x, Matrix &target) const;//判断x和target是否足够小
 
             Matrix
                 m_mreg0,

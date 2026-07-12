@@ -16,7 +16,7 @@ bool atg_scs::NsvOdeSolver::step(SystemState *system) {
     system->dt = m_dt;
     return true;
 }
-
+//先更新速度，用的到的新速度来更新位置、角度，精度比euler_ode_solver高
 void atg_scs::NsvOdeSolver::solve(SystemState *system) {
     system->dt = m_dt;
 
